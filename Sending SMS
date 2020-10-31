@@ -1,0 +1,40 @@
+import urllib
+import urllib.request as urllib2
+from flask import request
+
+username = 'gillespie2513@gmail.com'
+
+apihash = 'db427f297246b04ecb14ef209e7d06452741d574146b3de807841466c4371114'
+
+sender = 'taco'
+
+test_flag = 1
+
+numbers = ('16188896254')
+
+message = 'Hello taco'
+
+#------------------------
+
+values = {'test' : test_flag,
+          'username': username,
+          'hash' : apihash,
+          'message' : message,
+          'sender': sender,
+          'numbers': numbers }
+
+url = 'https://api.txtlocal.com/send/'
+
+data = urllib.parse.urlencode(values)
+data = data.encode('utf-8')
+
+print('Attempt to send SMS...')
+
+try:
+    response = urllib2.urlopen(request)
+    response_url = response.geturl()
+    if response_url==url:
+        print('SMS sent!')
+except urllib2.URLError as e:
+    print('Send failed!')
+    print(e.reason)
